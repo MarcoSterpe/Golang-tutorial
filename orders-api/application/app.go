@@ -40,7 +40,9 @@ func (a *App) Start(ctx context.Context) error {
 		}
 	}()
 
-	fmt.Println(`Starting server...
+	fmt.Println(`
+Starting server...
+
 ====================================================================
 ________            .___                       _____ __________.___ 
 \_____  \_______  __| _/___________  ______   /  _  \\______   \   |
