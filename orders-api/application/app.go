@@ -65,10 +65,10 @@ ________            .___                       _____ __________.___
 	case err = <-ch:
 		return err
 	case <-ctx.Done():
-		timeout, cancel := context.WithTimeout(context.Background(), time.Second*1)
+		_, cancel := context.WithTimeout(context.Background(), time.Second*1)
 		defer cancel()
 
-		return server.Shutdown()
+		return server.Shutdown(ctx)
 	}
 
 	return nil
