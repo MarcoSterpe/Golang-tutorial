@@ -93,7 +93,7 @@ func (r *RedisRepo) DeleteById(ctx context.Context, id uint64) error {
 	return nil
 }
 
-func (r *RedisRepo) Update(ctx context.Context, order model.Order) errror {
+func (r *RedisRepo) Update(ctx context.Context, order model.Order) error {
 	data, err := json.Marshal(order)
 	if err != nil {
 		return fmt.Errorf("failed to encode order: %w", err)
