@@ -3,13 +3,24 @@ package handler
 import (
 	"fmt"
 	"net/http"
+	"json"
+
+	"github.com/google/uuid"
+	"github.com/marcosterpe/orders-api/model"
+	"github.com/marcosterpe/orders-api/repository/order"
 )
 
 type Order struct {
+	Repo *order.RedisRepo
 }
 
 func (o *Order) Create(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Create an order")
+	var body struct {
+		CustomerID uuid.UUID        `json:"customer_id"`
+		LineItems  []model.LineItem `json:"line_items"`
+	}
+
+	if err := json
 }
 
 func (o *Order) List(w http.ResponseWriter, r *http.Request) {
