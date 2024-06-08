@@ -20,6 +20,7 @@ func New(config Config) *App {
 		rdb: redis.NewClient(&redis.Options{
 			Addr: config.RedisAddress,
 		}),
+		config: config,
 	}
 
 	app.loadRoutes()

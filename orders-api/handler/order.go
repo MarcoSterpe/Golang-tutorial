@@ -41,14 +41,14 @@ func (h *Order) Create(w http.ResponseWriter, r *http.Request) {
 
 	err := h.Repo.Insert(r.Context(), order)
 	if err != nil {
-		fmt.Errorf("failed to insert: %w", err)
+		fmt.Println("failed to insert: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	res, err := json.Marshal(order)
 	if err != nil {
-		fmt.Errorf("failed to marshal: %w", err)
+		fmt.Println("failed to marshal: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -67,7 +67,7 @@ func (h *Order) List(w http.ResponseWriter, r *http.Request) {
 	const bitSize = 64
 	cursor, err := strconv.ParseUint(cursorStr, decimal, bitSize)
 	if err != nil {
-		fmt.Errorf("failed to parseUint: %w", err)
+		fmt.Println("failed to parseUint: %w", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -78,7 +78,7 @@ func (h *Order) List(w http.ResponseWriter, r *http.Request) {
 		Size:   size,
 	})
 	if err != nil {
-		fmt.Errorf("failed to find all: %w", err)
+		fmt.Println("failed to find all: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -92,7 +92,7 @@ func (h *Order) List(w http.ResponseWriter, r *http.Request) {
 
 	data, err := json.Marshal((response))
 	if err != nil {
-		fmt.Errorf("failed to marshal: %w", err)
+		fmt.Println("failed to marshal: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -110,7 +110,7 @@ func (h *Order) GetById(w http.ResponseWriter, r *http.Request) {
 
 	orderID, err := strconv.ParseUint(idParam, base, bitSize)
 	if err != nil {
-		fmt.Errorf("failed to parseUint: %w", err)
+		fmt.Println("failed to parseUint: %w", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -120,13 +120,13 @@ func (h *Order) GetById(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	} else if err != nil {
-		fmt.Errorf("failed to find: %w", err)
+		fmt.Println("failed to find: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	if err := json.NewEncoder(w).Encode(o); err != nil {
-		fmt.Errorf("failed to marshal: %w", err)
+		fmt.Println("failed to marshal: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -157,7 +157,7 @@ func (h *Order) UpdateById(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	} else if err != nil {
-		fmt.Errorf("failed to find by id: %w", err)
+		fmt.Println("failed to find by id: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -186,13 +186,13 @@ func (h *Order) UpdateById(w http.ResponseWriter, r *http.Request) {
 
 	err = h.Repo.Update(r.Context(), theOrder)
 	if err != nil {
-		fmt.Errorf("failed to insert: %w", err)
+		fmt.Println("failed to insert: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	if err := json.NewEncoder(w).Encode(theOrder); err != nil {
-		fmt.Errorf("failed to marshal: %w", err)
+		fmt.Println("failed to marshal: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -207,7 +207,7 @@ func (h *Order) DeleteById(w http.ResponseWriter, r *http.Request) {
 
 	orderID, err := strconv.ParseUint(idParam, base, bitSize)
 	if err != nil {
-		fmt.Errorf("failed to parseUint: %w", err)
+		fmt.Println("failed to parseUint: %w", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -217,7 +217,7 @@ func (h *Order) DeleteById(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	} else if err != nil {
-		fmt.Errorf("failed to find: %w", err)
+		fmt.Println("failed to find: %w", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
